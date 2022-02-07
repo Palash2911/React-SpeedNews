@@ -39,18 +39,14 @@ export class Newscompo extends Component {
   render() {
     return (
       <div className="container my-3">
-        <center><h2>Top Flash Headlines</h2></center> 
+        <center><h2>Top Flash Headlines</h2></center>
         {/* Calling News Item in Here */}
         <div className="row">
-          <div className="col md-4">
-            <Newsitem title="News 1" description="description"/>
+          {this.state.articles.map((element)=>{
+            return  <div className="col md-3" key={element.url}>
+            <Newsitem newsurl= {element.url} title={element.title.slice(0,15)} description={element.description.slice(0, 88)} imgurl={element.urlToImage}/>
           </div>
-          <div className="col md-4">
-            <Newsitem title="News 1" description="description"/>
-          </div>
-          <div className="col md-4">
-            <Newsitem title="News 1" description="description"/>
-          </div>
+          })} 
         </div>
       </div>
     )

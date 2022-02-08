@@ -74,7 +74,7 @@ export class Newscompo extends Component {
         <div className="row">
           {!this.state.loading && this.state.articles.map((element)=>{
               return  <div className="col md-3" key={element.url}>
-                <Newsitem newsurl= {element.url} title={element.title?element.title:""} description={element.description?element.description:""} imgurl={element.urlToImage?element.urlToImage:"https://st.depositphotos.com/1006899/3776/i/950/depositphotos_37765339-stock-photo-news.jpg"} author={element.author} date={element.publishedAt} source={element.source.name} srccolor={this.state.srcolor}/>
+                <Newsitem newsurl= {element.url} title={element.title?element.title:""} description={element.description?element.description:""} imgurl={element.urlToImage?element.urlToImage:"https://st.depositphotos.com/1006899/3776/i/950/depositphotos_37765339-stock-photo-news.jpg"} author={element.author} date={element.publishedAt} source={element.source.name} srccolor={this.props.srcolor}/>
               </div>
           })} 
         </div>

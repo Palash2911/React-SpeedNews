@@ -30,10 +30,10 @@ export default class App extends Component {
           {/* Loading Bar */}
           <LoadingBar
             height={2}
-            color='#0096c7'
+            color='#adb5bd'
             progress={this.state.progress}
            />
-           
+
           {/* You can pass country also but i dont want to */}
             <Routes>
             {/* Use exact if making big website so when user click / only that part opens */}

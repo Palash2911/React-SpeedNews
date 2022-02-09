@@ -17,18 +17,24 @@ export class Newscompo extends Component {
     srcolor: PropTypes.string,
   };
 
-  constructor() {
-    super();
+  capitalizefirst = (string) =>{
+      return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  constructor(props) {
+    super(props);
     //created an object
     this.state = {
       articles: [],
       loading: false,
       page: 1,
     };
+    document.title = `${this.capitalizefirst(this.props.category)} - SpeedNews`
   }
+
   // will run after render/  Async function will wait for promises to resolve
   async componentDidMount() {
-    let apiurl = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=9d7a9b08c99a476f822b822b45b2bab5&page=1&pagesize=${this.props.pagesize}`;
+    let apiurl = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=083567d8fba04fbb9b8336b1038e941e&page=${this.state.page}&pagesize=${this.props.pagesize}`;
     this.setState({ loading: true });
     let data = await fetch(apiurl);
     let parseddata = await data.json();
@@ -40,11 +46,7 @@ export class Newscompo extends Component {
   }
 
   Prevclick = async () => {
-    let apiurl = `https://newsapi.org/v2/top-headlines?country=in&category=${
-      this.props.category
-    }&apiKey=9d7a9b08c99a476f822b822b45b2bab5&page=${
-      this.state.page - 1
-    }&pagesize=${this.props.pagesize}`;
+    let apiurl = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=083567d8fba04fbb9b8336b1038e941e&page=${this.state.page - 1}&pagesize=${this.props.pagesize}`;
     this.setState({ loading: true });
     let data = await fetch(apiurl);
     let parseddata = await data.json();
@@ -54,12 +56,9 @@ export class Newscompo extends Component {
       articles: parseddata.articles,
     });
   };
+
   Nextclick = async () => {
-    let apiurl = `https://newsapi.org/v2/top-headlines?country=in&category=${
-      this.props.category
-    }&apiKey=9d7a9b08c99a476f822b822b45b2bab5&page=${
-      this.state.page + 1
-    }&pagesize=${this.props.pagesize}`;
+    let apiurl = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=083567d8fba04fbb9b8336b1038e941e&page=${this.state.page + 1}&pagesize=${this.props.pagesize}`;
     this.setState({ loading: true });
     let data = await fetch(apiurl);
     let parseddata = await data.json();
@@ -73,31 +72,17 @@ export class Newscompo extends Component {
   render() {
     return (
       <div className="container">
-        <h1 className="text-center" style={{ margin: "36px" }}>
-          Top Flash Headlines
-        </h1>
+        <h1 className="text-center" style={{ margin: "36px" }}>Top {this.capitalizefirst(this.props.category)} Headlines</h1>
 
         {/* Spinner Component */}
-        {this.state.loading && <Spinner />}
+        {this.state.loading && <Spinner/>}
 
         {/* Calling News Item in Here */}
         <div className="row">
-          {!this.state.loading &&
-            this.state.articles.map((element) => {
+          {!this.state.loading && this.state.articles?.map((element) => {
               return (
                 <div className="col md-3" key={element.url}>
-                  <Newsitem
-                    newsurl={element.url}
-                    title={element.title ? element.title : ""}
-                    description={element.description ? element.description : ""}
-                    imgurl={
-                      element.urlToImage?element.urlToImage:"https://st.depositphotos.com/1006899/3776/i/950/depositphotos_37765339-stock-photo-news.jpg"
-                    }
-                    author={element.author}
-                    date={element.publishedAt}
-                    source={element.source.name}
-                    srccolor={this.props.srcolor}
-                  />
+                  <Newsitem newsurl={element.url} title={element.title?element.title:""} description={element.description?element.description:""} imgurl={element.urlToImage?element.urlToImage:"https://st.depositphotos.com/1006899/3776/i/950/depositphotos_37765339-stock-photo-news.jpg"} author={element.author} date={element.publishedAt} source={element.source.name} srccolor={this.props.srcolor}/>
                 </div>
               );
             })}

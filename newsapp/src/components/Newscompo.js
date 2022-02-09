@@ -35,16 +35,19 @@ export class Newscompo extends Component {
   }
 
   async updateNews() {
+    this.props.setProgress(10);
     const apiurl = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=083567d8fba04fbb9b8336b1038e941e&page=${this.state.page}&pagesize=${this.props.pagesize}`;
     this.setState({ loading: true });
     let data = await fetch(apiurl);
     let parseddata = await data.json();
+    this.props.setProgress(50);
     this.setState({
       articles: parseddata.articles,
       totres: parseddata.totalResults,
       loading: false,
       totalResults: parseddata.totalResults
     });
+    this.props.setProgress(100);
   }
   // will run after render/  Async function will wait for promises to resolve
   async componentDidMount() {

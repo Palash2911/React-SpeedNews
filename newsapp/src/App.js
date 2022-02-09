@@ -10,7 +10,11 @@ import {
 import LoadingBar from 'react-top-loading-bar'
 
 export default class App extends Component {
-
+  
+    pagesize = 6
+    // Always use REACT_APP_ to name any variable in ENVIRONMENT VARIABLE
+    apikey = process.env.REACT_APP_API
+  
   // laoding bar Progress
   state = {
       progress: 0
@@ -19,7 +23,6 @@ export default class App extends Component {
   setProgress = (progress)=>{
       this.setState({progress: progress})
   }
-  pagesize=6
   // can make variables like c='Palash' and then call below using {this.c}
   render() {
     return (
@@ -37,21 +40,21 @@ export default class App extends Component {
           {/* You can pass country also but i dont want to */}
             <Routes>
             {/* Use exact if making big website so when user click / only that part opens */}
-              <Route exact path="/" element={ <Newscompo setProgress={this.setProgress} key="general" srcolor="danger" pagesize={this.pagesize} category="general"/>}>
+              <Route exact path="/" element={ <Newscompo setProgress={this.setProgress} apikey={this.apikey} key="general" srcolor="danger" pagesize={this.pagesize} category="general"/>}>
                 </Route>
-              <Route exact path="/sports" element={ <Newscompo setProgress={this.setProgress} key="sports" srcolor="warning" pagesize={this.pagesize} category="sports"/>}>
+              <Route exact path="/sports" element={ <Newscompo setProgress={this.setProgress} apikey={this.apikey} key="sports" srcolor="warning" pagesize={this.pagesize} category="sports"/>}>
                 </Route>
-              <Route exact path="/business" element={ <Newscompo setProgress={this.setProgress} key="business" srcolor="success" pagesize={this.pagesize} category="business"/>}>
+              <Route exact path="/business" element={ <Newscompo setProgress={this.setProgress} apikey={this.apikey} key="business" srcolor="success" pagesize={this.pagesize} category="business"/>}>
                 </Route>
-              <Route exact path="/technology" element={ <Newscompo setProgress={this.setProgress} key="technology" srcolor="dark" pagesize={this.pagesize} category="technology"/>}>
+              <Route exact path="/technology" element={ <Newscompo setProgress={this.setProgress} apikey={this.apikey} key="technology" srcolor="dark" pagesize={this.pagesize} category="technology"/>}>
                 </Route>
-              <Route exact path="/general" element={ <Newscompo setProgress={this.setProgress} key="general" srcolor="danger" pagesize={this.pagesize} category="general"/>}>
+              <Route exact path="/general" element={ <Newscompo setProgress={this.setProgress} apikey={this.apikey} key="general" srcolor="danger" pagesize={this.pagesize} category="general"/>}>
                 </Route>
-              <Route exact path="/health" element={ <Newscompo setProgress={this.setProgress} key="health" srcolor="info" pagesize={this.pagesize} category="health"/>}>
+              <Route exact path="/health" element={ <Newscompo setProgress={this.setProgress} apikey={this.apikey} key="health" srcolor="info" pagesize={this.pagesize} category="health"/>}>
                 </Route>
-              <Route exact path="/entertainment" element={ <Newscompo setProgress={this.setProgress} key="entertainment" srcolor="secondary" pagesize={this.pagesize} category="entertainment"/>}>
+              <Route exact path="/entertainment" element={ <Newscompo setProgress={this.setProgress} apikey={this.apikey} key="entertainment" srcolor="secondary" pagesize={this.pagesize} category="entertainment"/>}>
                 </Route>
-              <Route exact path="/science" element={ <Newscompo setProgress={this.setProgress} key="science" srcolor="primary" pagesize={this.pagesize} category="science"/>}>
+              <Route exact path="/science" element={ <Newscompo setProgress={this.setProgress} apikey={this.apikey} key="science" srcolor="primary" pagesize={this.pagesize} category="science"/>}>
                 </Route>
           </Routes>
         </Router>

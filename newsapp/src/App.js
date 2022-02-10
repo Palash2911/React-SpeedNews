@@ -1,5 +1,5 @@
 import './App.css';
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import Navbar from './components/Navbar';
 import Newscompo from './components/Newscompo';
 import {
@@ -9,22 +9,20 @@ import {
 } from "react-router-dom";
 import LoadingBar from 'react-top-loading-bar'
 
-export default class App extends Component {
+const App =()=> {
   
     pagesize = 6
     // Always use REACT_APP_ to name any variable in ENVIRONMENT VARIABLE
     apikey = process.env.REACT_APP_API
   
   // laoding bar Progress
-  state = {
-      progress: 0
-  }
+  const [progress, setprogress] = useState(0)
 
-  setProgress = (progress)=>{
-      this.setState({progress: progress})
+  const setProgress = (progress)=>{
+    setprogress(progress)
   }
+  
   // can make variables like c='Palash' and then call below using {this.c}
-  render() {
     return (
       <div>
         <Router>
@@ -60,5 +58,4 @@ export default class App extends Component {
         </Router>
       </div>
     )
-  }
 }

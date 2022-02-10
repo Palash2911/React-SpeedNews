@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class Newsitem extends Component {
-  render() {
+const Newsitem = (props) => {
     // when props called title and description will be assigned those value
-    let {title, description, imgurl, newsurl, author, date, source, srccolor} = this.props
+    let {title, description, imgurl, newsurl, author, date, source, srccolor} = props
 
     return (
       <div className="my-3">
@@ -19,7 +18,6 @@ export class Newsitem extends Component {
         </div>
       </div>
     );
-  }
 }
 
 export default Newsitem;

@@ -7,7 +7,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const Newscompo = (props)=> {
 
   // Removing Constructor and adding states
-  const [article, setArticle] = useState([])
+  const [articles, setArticles] = useState([])
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
   const [totalresult, settotalresult] = useState(0)
@@ -25,16 +25,16 @@ const Newscompo = (props)=> {
     let data = await fetch(apiurl);
     let parseddata = await data.json();
     props.setProgress(50);
-    setArticle(parseddata.articles)
+    setArticles(parseddata.articles)
     setLoading(false)
     settotalresult(parseddata.totalResults)
-
     props.setProgress(100);
   }
 
   // use Useeffect instead of componenetDidmount() 
   useEffect(() => {
-    updateNews()
+    updateNews();
+    // eslint-disable-next-line
   }, [])
   
   // will run after render/  Async function will wait for promises to resolve - componenetDidmount() 
@@ -57,7 +57,7 @@ const Newscompo = (props)=> {
       setPage(page+1)
       let data = await fetch(apiurl);
       let parseddata = await data.json();
-      setArticle(article.concat(parseddata.articles))
+      setArticles(articles.concat(parseddata.articles))
       settotalresult(parseddata.totalResults)
   };
 
@@ -70,19 +70,17 @@ const Newscompo = (props)=> {
 
         {/* Calling News Item in Here */}
         <InfiniteScroll
-          dataLength={article.length}
-          next={fetchMoreData()}
-          hasMore={article.length !== totalresult}
+          dataLength={articles.length}
+          next={fetchMoreData}
+          hasMore={articles.length !== totalresult}
           loader={<Spinner/>}
         >
         <div className="container">
         <div className="row">
-          {state.articles?.map((element) => {
-              return (
-                <div className="col md-3" key={element.url}>
+          {articles.map((element) => {
+              return <div className="col md-3" key={element.url}>
                   <Newsitem newsurl={element.url} title={element.title?element.title:""} description={element.description?element.description:""} imgurl={element.urlToImage?element.urlToImage:"https://st.depositphotos.com/1006899/3776/i/950/depositphotos_37765339-stock-photo-news.jpg"} author={element.author} date={element.publishedAt} source={element.source.name} srccolor={props.srcolor}/>
                 </div>
-              );
             })}
         </div>          
       </div>
@@ -101,12 +99,12 @@ Newscompo.defaultProps = {
   pagesize: 6,
   category: "general",
   srcolor: "danger",
-};
+}
 
 Newscompo.propTypes = {
-  pagesize: PropTypes.string,
+  pagesize: PropTypes.number,
   category: PropTypes.string,
   srcolor: PropTypes.string,
-};
+}
 
 export default Newscompo;
